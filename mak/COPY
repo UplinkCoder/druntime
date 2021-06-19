@@ -521,4 +521,13 @@ COPY=\
 	$(IMPDIR)\core\thread\osthread.d \
 	$(IMPDIR)\core\thread\package.d \
 	\
-	$(IMPDIR)\etc\linux\memoryerror.d
+	$(IMPDIR)\etc\linux\memoryerror.d \
+	\
+	$(IMPDIR)\core\reflect\node.d \
+	$(IMPDIR)\core\reflect\decl.d \
+	$(IMPDIR)\core\reflect\dscope.d \
+	$(IMPDIR)\core\reflect\func.d \
+	$(IMPDIR)\core\reflect\reflect.d \
+	$(IMPDIR)\core\reflect\stmt.d \
+	$(IMPDIR)\core\reflect\sym.d \
+	$(IMPDIR)\core\reflect\type.d

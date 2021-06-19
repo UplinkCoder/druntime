@@ -566,4 +566,13 @@ SRCS=\
 	src\rt\util\typeinfo.d \
 	src\rt\util\utility.d \
 	\
-	src\etc\linux\memoryerror.d
+	src\etc\linux\memoryerror.d \
+	\
+	src\core\reflect\node.d \
+	src\core\reflect\decl.d \
+	src\core\reflect\dscope.d \
+	src\core\reflect\func.d \
+	src\core\reflect\reflect.d \
+	src\core\reflect\stmt.d \
+	src\core\reflect\sym.d \
+	src\core\reflect\type.d
