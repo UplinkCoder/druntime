@@ -526,6 +526,7 @@ COPY=\
 	$(IMPDIR)\core\reflect\node.d \
 	$(IMPDIR)\core\reflect\decl.d \
 	$(IMPDIR)\core\reflect\dscope.d \
+	$(IMPDIR)\core\reflect\expr.d \
 	$(IMPDIR)\core\reflect\func.d \
 	$(IMPDIR)\core\reflect\reflect.d \
 	$(IMPDIR)\core\reflect\stmt.d \
