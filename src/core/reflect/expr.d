@@ -7,25 +7,46 @@ class Expression : Node
     Type type; /// may be null if not fully resolved
 }
 
-class IntegerExpression : Expression
+class Literal : Expression {}
+
+class IntegerLiteral : Literal
 {
     ulong value; // should be ucent .... but ah well
 }
 
-class StringExpression : Expression
+class StringLiteral : Literal
 {
-    ubyte codeUnitSize; /// 1, 2, or 4
+pure nothrow:
 
-    union
+    string string_;
+/+
+    ubyte codeUnitSize()  /// 1, 2, or 4
     {
-        string string_;
-        wstring wstring_;
-        dstring dstring_;
+        assert(type.kind == TypeKind.Slice || type.kind == TypeKind.Array);
+        auto elementType = (cast(TypeNext) type).nextOf;
+        switch(elementType.kind)
+        {
+            case TypeKind.Char : return 1;
+            case TypeKind.Wchar : return 2;
+            case TypeKind.Dchar : return 4;
+            default: assert(0); // can't ever happen
+        }
     }
+
     string toUTF8()
     {
-        
+        final switch(codeUnitSize())
+        {
+            case 1 : return string_;
+            case 2 : return cast(string) wstring_;
+            case 4 : return cast(string) dstring_;
+        }
+        assert(0);
     }
++/
 }
 
-class 
+class StructLiteral : Literal
+{
+   Expression[] elements;
+}

@@ -2,29 +2,100 @@ module core.reflect.type;
 import core.reflect.node;
 import core.reflect.func;
 import core.reflect.sym;
-/+
+import core.reflect.decl;
+
 enum TypeKind
 {
-   Invalid,
+    Invalid,
 
-   TypeBasic,
-   TypeClass,
-   TypeStruct,
-   TypeUnion,
+    Enum,
 
-   TypeAA,
-   TypeArray,
-   TypeSlice,
-   TypePointer,
-   TypeRef,
-   TypeFunction,
+    Struct,
+    Union,
+    Class,
+    Interface,
+   
+    AA,
+    Array,
+    Slice,
+    Pointer,
+    Ref,
+    Function,
 
-   TypeNoReturn,
-   TypeTuple,
+    Tuple,
 
-   Null,
+    Null,
+
+    NoReturn,
+    Void,
+
+    Char,
+    Ubyte,
+    Byte,
+
+    Wchar,
+    Ushort,
+    Short,
+
+    Dchar,
+    Uint,
+    Int,
+
+    Ulong,
+    Long,
+
+    Ucent,
+    Cent,
+
+    Float,
+    Double,
+    Real,
 }
+class Type : Node
+{
+    string kind;
+    uint alignSize;
+    ulong size;
+    string identifier = null; /// optional Types may be anonymous
+/+
+pure nothrow:
+    final bool isIntegral()
+    {
+        return kind >= TypeKind.Char && kind <= TypeKind.Long;
+    }
+
+    final bool isChar()
+    {
+        return kind == TypeKind.Char || kind == TypeKind.Wchar || kind == TypeKind.Dchar;
+    }
+
+    final bool isFloating()
+    {
+        return kind >= TypeKind.Float && kind <= TypeKind.Real;
+    }
+
+    final bool isUnsigned()
+    {
+        return isChar() 
+            || kind == TypeKind.Ubyte
+            || kind == TypeKind.Uint
+            || kind == TypeKind.Ulong
+            || kind == TypeKind.Ucent; 
+    }
+
+    final bool isSigned()
+    {
+        return isIntegral() && !isUnsigned();
+    }
+
+    final bool isBasic()
+    {
+        return kind >= TypeKind.Null && kind <= TypeKind.Real;
+    }
 +/
+}
+
+
 class TypeNext : Type
 {
     Type nextOf;
@@ -39,17 +110,25 @@ class TypeRef : TypeNext
 class TypeSlice : TypeNext
 {}
 
+class TypeEnum : TypeNext
+{
+    EnumDeclaration sym;
+}
+
 class TypeArray : TypeNext
 {
     int dim;
 }
 
-class Type : Node
+class TypeAArray : TypeNext
 {
-    string kind;
-    uint alignSize;
-    ulong size;
-    string identifier = null; /// optional Types may be anonymous
+    Type indexType;
+}
+
+class FunctionType : Type
+{
+    Type returnType;
+    FunctionParameter[] parameterTypes;
 }
 
 class TypeAggregate : Type
@@ -60,13 +139,12 @@ class TypeAggregate : Type
 
 class TypeClass : TypeAggregate
 {
+    ClassDeclaration sym;
     ulong instanceSize;
     bool isScopeClass;
 }
 
-class FunctionType : Type
+class TypeStruct : TypeAggregate
 {
-    Type returnType;
-    Type[] parameterTypes;
+    StructDeclaration sym;
 }
-
