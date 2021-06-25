@@ -1,21 +1,30 @@
 module core.reflect.expr;
 import core.reflect.node;
 import core.reflect.type;
+import core.reflect.reflect : Visitor;
 
 class Expression : Node
 {
+    override void accept(Visitor v) { return v.visit(this); }
+
     Type type; /// may be null if not fully resolved
 }
 
-class Literal : Expression {}
+class Literal : Expression
+{
+    override void accept(Visitor v) { return v.visit(this); }
+}
 
 class IntegerLiteral : Literal
 {
+    override void accept(Visitor v) { return v.visit(this); }
+
     ulong value; // should be ucent .... but ah well
 }
 
 class StringLiteral : Literal
 {
+    override void accept(Visitor v) { return v.visit(this); }
 pure nothrow:
 
     string string_;
@@ -48,5 +57,7 @@ pure nothrow:
 
 class StructLiteral : Literal
 {
+   override void accept(Visitor v) { return v.visit(this); }
+
    Expression[] elements;
 }

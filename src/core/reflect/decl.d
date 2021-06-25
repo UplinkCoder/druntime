@@ -4,6 +4,7 @@ import core.reflect.node;
 import core.reflect.type;
 import core.reflect.stmt;
 import core.reflect.sym;
+import core.reflect.reflect : Visitor;
 
 enum DeclarationKind
 {
@@ -32,6 +33,8 @@ enum Linkage
 
 class Declaration : Node
 {
+    override void accept(Visitor v) { v.visit(this); }
+
     string name;
     Node[] attributes;
     Linkage linkage;
@@ -42,6 +45,8 @@ class Declaration : Node
 
 class VariableDeclaration : Declaration
 {
+    override void accept(Visitor v) { v.visit(this); }
+
     Type type;
     Expression _init;
 
@@ -50,31 +55,40 @@ class VariableDeclaration : Declaration
 
 class FunctionDeclaration : Declaration
 {
+    override void accept(Visitor v) { v.visit(this); }
+
     FunctionType type;
     VariableDeclaration[] parameters;
     Statement fbody;
 
     final override immutable DeclarationKind kind() pure { return DeclarationKind.FunctionDeclaration; }
 }
-
 class EnumDeclaration : Declaration
 {
+    override void accept(Visitor v) { v.visit(this); }
+
     final override immutable DeclarationKind kind() pure { return DeclarationKind.EnumDeclaration; }
 }
 
 class StructDeclaration : AggregateDeclaration
 {
+    override void accept(Visitor v) { v.visit(this); }
+
     final override immutable DeclarationKind kind() pure { return DeclarationKind.StructDeclaration; }
 }
 
 class ClassDeclaration : AggregateDeclaration
 {
+    override void accept(Visitor v) { v.visit(this); }
+
     bool onStack; /// is scope class
     final override immutable DeclarationKind kind() pure { return DeclarationKind.ClassDeclaration; }
 }
 
 abstract class AggregateDeclaration : Declaration
 {
+    override void accept(Visitor v) { v.visit(this); }
+
     VariableDeclaration[] fields;
 }
 

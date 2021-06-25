@@ -3,6 +3,7 @@ import core.reflect.node;
 import core.reflect.func;
 import core.reflect.sym;
 import core.reflect.decl;
+import core.reflect.reflect : Visitor;
 
 enum TypeKind
 {
@@ -51,8 +52,11 @@ enum TypeKind
     Double,
     Real,
 }
+
 class Type : Node
 {
+    override void accept(Visitor v) { return v.visit(this); }
+
     string kind;
     uint alignSize;
     ulong size;
@@ -98,47 +102,67 @@ pure nothrow:
 
 class TypeNext : Type
 {
+    override void accept(Visitor v) { return v.visit(this); }
+
     Type nextOf;
 }
 
 class TypePointer : TypeNext
-{}
+{
+    override void accept(Visitor v) { return v.visit(this); }
+}
 
 class TypeRef : TypeNext
-{}
+{
+    override void accept(Visitor v) { return v.visit(this); }
+}
 
 class TypeSlice : TypeNext
-{}
+{
+    override void accept(Visitor v) { return v.visit(this); }
+}
 
 class TypeEnum : TypeNext
 {
+    override void accept(Visitor v) { return v.visit(this); }
+
     EnumDeclaration sym;
 }
 
 class TypeArray : TypeNext
 {
+    override void accept(Visitor v) { return v.visit(this); }
+
     int dim;
 }
 
 class TypeAArray : TypeNext
 {
+    override void accept(Visitor v) { return v.visit(this); }
+
     Type indexType;
 }
 
 class FunctionType : Type
 {
+    override void accept(Visitor v) { return v.visit(this); }
+
     Type returnType;
     FunctionParameter[] parameterTypes;
 }
 
 class TypeAggregate : Type
 {
+    override void accept(Visitor v) { return v.visit(this); }
+
     Symbol[] members;
     bool hasPointers;
 }
 
 class TypeClass : TypeAggregate
 {
+    override void accept(Visitor v) { return v.visit(this); }
+
     ClassDeclaration sym;
     ulong instanceSize;
     bool isScopeClass;
@@ -146,5 +170,7 @@ class TypeClass : TypeAggregate
 
 class TypeStruct : TypeAggregate
 {
+    override void accept(Visitor v) { return v.visit(this); }
+
     StructDeclaration sym;
 }
