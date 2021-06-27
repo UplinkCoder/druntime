@@ -19,6 +19,7 @@ abstract class Visitor
    void visit(StructDeclaration S);
    void visit(ClassDeclaration C);
    void visit(AggregateDeclaration A);
+   void visit(EnumMember E);
    void visit(Expression E);
    void visit(Literal L);
    void visit(IntegerLiteral I);

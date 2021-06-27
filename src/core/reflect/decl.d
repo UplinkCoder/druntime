@@ -9,6 +9,7 @@ import core.reflect.reflect : Visitor;
 enum DeclarationKind
 {
     Invalid,
+
     EnumDeclaration,
     FunctionDeclaration,
     StructDeclaration,
@@ -17,6 +18,8 @@ enum DeclarationKind
     VariableDeclaration,
     AliasDeclaration,
     TemplateDeclaration,
+
+    EnumMember,
 }
 
 enum Linkage
@@ -63,9 +66,22 @@ class FunctionDeclaration : Declaration
 
     final override immutable DeclarationKind kind() pure { return DeclarationKind.FunctionDeclaration; }
 }
+
+class EnumMember : Declaration
+{
+    override void accept(Visitor v) { return v.visit(this); }
+
+    Expression value;
+
+    final override immutable DeclarationKind kind() pure { return DeclarationKind.EnumMember; }
+}
+
 class EnumDeclaration : Declaration
 {
     override void accept(Visitor v) { v.visit(this); }
+
+    Type type;
+    EnumMember[] members;
 
     final override immutable DeclarationKind kind() pure { return DeclarationKind.EnumDeclaration; }
 }

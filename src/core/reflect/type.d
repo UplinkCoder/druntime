@@ -122,13 +122,6 @@ class TypeSlice : TypeNext
     override void accept(Visitor v) { return v.visit(this); }
 }
 
-class TypeEnum : TypeNext
-{
-    override void accept(Visitor v) { return v.visit(this); }
-
-    EnumDeclaration sym;
-}
-
 class TypeArray : TypeNext
 {
     override void accept(Visitor v) { return v.visit(this); }
@@ -141,6 +134,13 @@ class TypeAArray : TypeNext
     override void accept(Visitor v) { return v.visit(this); }
 
     Type indexType;
+}
+
+class TypeEnum : Type
+{
+    override void accept(Visitor v) { return v.visit(this); }
+
+    EnumDeclaration sym;
 }
 
 class FunctionType : Type
