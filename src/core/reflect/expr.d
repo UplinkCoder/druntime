@@ -31,6 +31,14 @@ class IntegerLiteral : Literal
     ulong value; // should be ucent .... but ah well
 }
 
+class FunctionLiteral : Literal
+{
+    override void accept(Visitor v) { return v.visit(this); }
+
+    typeof(FunctionDeclaration.parameters) parameters;
+    typeof(FunctionDeclaration.fbody) fBody;
+}
+
 class StringLiteral : Literal
 {
     override void accept(Visitor v) { return v.visit(this); }

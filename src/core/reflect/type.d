@@ -126,7 +126,7 @@ class TypeArray : TypeNext
 {
     override void accept(Visitor v) { return v.visit(this); }
 
-    int dim;
+    uint dim;
 }
 
 class TypeAArray : TypeNext

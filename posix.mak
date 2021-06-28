@@ -377,7 +377,7 @@ $(DRUNTIMESOLIB): $(OBJS) $(SRCS) $(DMD)
 ################### Library generation #########################
 
 $(DRUNTIME): $(OBJS) $(SRCS) $(DMD)
-	$(DMD) -lib -of$(DRUNTIME) -Xfdruntime.json $(DFLAGS) $(SRCS) $(OBJS)
+	$(DMD) -version=DruntimeLibraryBuild -lib -of$(DRUNTIME) -Xfdruntime.json $(DFLAGS) $(SRCS) $(OBJS)
 
 lib: $(DRUNTIME)
 

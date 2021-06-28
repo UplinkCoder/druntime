@@ -52,6 +52,7 @@ class VariableDeclaration : Declaration
 
     Type type;
     Expression _init;
+    uint offset;
 
     final override immutable DeclarationKind kind() pure { return DeclarationKind.VariableDeclaration; }
 }
@@ -86,6 +87,14 @@ class EnumDeclaration : Declaration
     final override immutable DeclarationKind kind() pure { return DeclarationKind.EnumDeclaration; }
 }
 
+abstract class AggregateDeclaration : Declaration
+{
+    override void accept(Visitor v) { v.visit(this); }
+
+    Type type;
+    VariableDeclaration[] fields;
+}
+
 class StructDeclaration : AggregateDeclaration
 {
     override void accept(Visitor v) { v.visit(this); }
@@ -99,13 +108,6 @@ class ClassDeclaration : AggregateDeclaration
 
     bool onStack; /// is scope class
     final override immutable DeclarationKind kind() pure { return DeclarationKind.ClassDeclaration; }
-}
-
-abstract class AggregateDeclaration : Declaration
-{
-    override void accept(Visitor v) { v.visit(this); }
-
-    VariableDeclaration[] fields;
 }
 
 immutable (Declaration)[] declarationsFromTokenString(@("tokenstring") string s);
