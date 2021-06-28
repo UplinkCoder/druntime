@@ -22,6 +22,7 @@ abstract class Visitor
    void visit(EnumMember E);
    void visit(Expression E);
    void visit(Literal L);
+   void visit(VariableExpression V);
    void visit(IntegerLiteral I);
    void visit(StringLiteral S);
    void visit(StructLiteral S);
@@ -41,6 +42,7 @@ abstract class Visitor
    void visit(TypeStruct T);
    void visit(Statement S);
    void visit(BlockStatement B);
+   void visit(ReturnStatement R);
    void visit(FunctionParameter F);
    void visit(Function F);
    void visit(Scope S);

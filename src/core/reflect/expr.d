@@ -1,6 +1,8 @@
 module core.reflect.expr;
 import core.reflect.node;
 import core.reflect.type;
+import core.reflect.decl;
+
 import core.reflect.reflect : Visitor;
 
 class Expression : Node
@@ -8,6 +10,13 @@ class Expression : Node
     override void accept(Visitor v) { return v.visit(this); }
 
     Type type; /// may be null if not fully resolved
+}
+
+class VariableExpression : Expression
+{
+    override void accept(Visitor v) { return v.visit(this); }
+
+    Declaration var;
 }
 
 class Literal : Expression
