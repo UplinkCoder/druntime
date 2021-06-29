@@ -235,6 +235,11 @@ private class NodeToSourceVisitor : Visitor
         assert(0, "abstract Type has no source representation");
     }
 
+    override void visit(TypeBasic T)
+    {
+        putType(T);
+    }
+
     override void visit(TypeNext T)
     {
         assert(0, "abstract TypeNext has no source representation");

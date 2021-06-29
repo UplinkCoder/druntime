@@ -30,6 +30,7 @@ abstract class Visitor
    void visit(Symbol S);
    void visit(ScopeDsymbol S);
    void visit(Type T);
+   void visit(TypeBasic T);
    void visit(TypeNext T);
    void visit(TypePointer T);
    void visit(TypeRef T);
@@ -142,6 +143,10 @@ private class NodeToStringVisitor : Visitor
        result = StructToString(S, indent_level);
    }
    override void visit(Type T)
+   {
+       result = StructToString(T, indent_level);
+   }
+   override void visit(TypeBasic T)
    {
        result = StructToString(T, indent_level);
    }

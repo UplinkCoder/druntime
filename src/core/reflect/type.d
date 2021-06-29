@@ -100,6 +100,11 @@ pure nothrow:
 }
 
 
+class TypeBasic : Type
+{
+    override void accept(Visitor v) { return v.visit(this); }
+}
+
 class TypeNext : Type
 {
     override void accept(Visitor v) { return v.visit(this); }
