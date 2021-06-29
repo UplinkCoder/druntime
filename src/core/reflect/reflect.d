@@ -256,22 +256,22 @@ private string elemToString(E)(E e, uint indent_level = 1)
         import core.internal.string;
         static if (__traits(isUnsigned, typeof(e)))
         {
-            result ~= unsignedToTempString(e);
+            result ~= unsignedToTempString(e) ~ ",\n";
         }
         else
         {
-            result ~= signedToTempString(e);
+            result ~= signedToTempString(e) ~ ",\n";
         }
     }
     else static if (is(typeof(e) == ulong))
     {
         import core.internal.string;
-        result ~= unsignedToTempString(cast(uint)e);
+        result ~= unsignedToTempString(cast(uint)e) ~ ",\n";
     }
     else static if (is(typeof(e) == void*))
     {
         import core.internal.string;
-        result ~= unsignedToTempString(cast(uint)e);
+        result ~= unsignedToTempString(cast(uint)e) ~ ",\n";
     }
     else 
     {
@@ -329,7 +329,7 @@ private string StructToString(S)(S _struct, uint indent_level = 1, bool forParen
         }
         else
         {        
-            result ~= elemToString(e);
+            result ~= elemToString(e, indent_level);
         }
     }
     else
@@ -379,8 +379,6 @@ extern (D) string nodeToString(const Node N, uint indent_level = 1)
 }
 else
 {
-import core.reflect.node;
-
 extern (D) string nodeToString(const Node N, uint indent_level = 1);
 extern (D) void clearCache();
 }

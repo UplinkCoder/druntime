@@ -34,7 +34,7 @@ enum Linkage
     System,
 }
 
-class Declaration : Node
+abstract class Declaration : Node
 {
     override void accept(Visitor v) { v.visit(this); }
 

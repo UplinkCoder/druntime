@@ -531,4 +531,5 @@ COPY=\
 	$(IMPDIR)\core\reflect\reflect.d \
 	$(IMPDIR)\core\reflect\stmt.d \
 	$(IMPDIR)\core\reflect\sym.d \
-	$(IMPDIR)\core\reflect\type.d
+	$(IMPDIR)\core\reflect\type.d \
+	$(IMPDIR)\core\reflect\nodeToSource.d

@@ -36,7 +36,7 @@ class FunctionLiteral : Literal
     override void accept(Visitor v) { return v.visit(this); }
 
     typeof(FunctionDeclaration.parameters) parameters;
-    typeof(FunctionDeclaration.fbody) fBody;
+    typeof(FunctionDeclaration.fbody) fbody;
 }
 
 class StringLiteral : Literal

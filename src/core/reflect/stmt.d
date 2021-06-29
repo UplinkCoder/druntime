@@ -20,5 +20,5 @@ class ReturnStatement : Statement
 {
     override void accept(Visitor v) { return v.visit(this); }
 
-    Expression exp;
+    Expression exp; /// may be null in case of return ;
 }

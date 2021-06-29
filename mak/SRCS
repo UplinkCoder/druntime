@@ -576,4 +576,5 @@ SRCS=\
 	src\core\reflect\reflect.d \
 	src\core\reflect\stmt.d \
 	src\core\reflect\sym.d \
-	src\core\reflect\type.d
+	src\core\reflect\type.d \
+	src\core\reflect\nodeToSource.d
