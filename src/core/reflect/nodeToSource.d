@@ -5,12 +5,12 @@ import core.reflect.reflect;
 private class NodeToSourceVisitor : Visitor
 {
     __gshared string[void*] cache;
-   
+
     string result;
-   
+
     uint indent_level;
     string indent;
-   
+
     this(uint indent_level)
     {
         if (indent_level)
@@ -31,12 +31,12 @@ private class NodeToSourceVisitor : Visitor
     {
         indent = indent[0 .. $-4];
     }
-   
+
     static void clearCache()
     {
         cache.clear();
     }
-   
+
     override void visit(Node N)
     {
         assert(0, "abstract Node has no source representation");
@@ -128,7 +128,7 @@ private class NodeToSourceVisitor : Visitor
             {
                 result ~= indent ~ nodeToSource(f, indent_level) ~ ",\n";
             }
-        }       
+        }
         decreaseIndent();
     }
 
@@ -168,6 +168,20 @@ private class NodeToSourceVisitor : Visitor
     override void visit(Expression E)
     {
         assert(0, "abstract Expression has no source representation");
+    }
+
+    override void visit(ParenthesisExpression P)
+    {
+        result ~= "(";
+        P.exp.accept(this);
+        result ~= ")";
+    }
+
+    override void visit(BinaryExpression B)
+    {
+        B.left.accept(this);
+        result ~= " " ~ B.op ~ " ";
+        B.right.accept(this);
     }
 
     override void visit(VariableExpression V)
@@ -310,11 +324,6 @@ private class NodeToSourceVisitor : Visitor
     {
         putType(F.returnType);
         putParameterTypes(F);
-    }
-
-    override void visit(TypeAggregate T)
-    {
-        assert(0, "abstract TypeAggregate has no source representation");
     }
 
     override void visit(TypeClass T)

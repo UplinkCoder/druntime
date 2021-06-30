@@ -156,24 +156,14 @@ class FunctionType : Type
     FunctionParameter[] parameterTypes;
 }
 
-class TypeAggregate : Type
-{
-    override void accept(Visitor v) { return v.visit(this); }
-
-    Symbol[] members;
-    bool hasPointers;
-}
-
-class TypeClass : TypeAggregate
+class TypeClass : Type
 {
     override void accept(Visitor v) { return v.visit(this); }
 
     ClassDeclaration sym;
-    ulong instanceSize;
-    bool isScopeClass;
 }
 
-class TypeStruct : TypeAggregate
+class TypeStruct : Type
 {
     override void accept(Visitor v) { return v.visit(this); }
 

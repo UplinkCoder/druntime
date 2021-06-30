@@ -22,3 +22,10 @@ class ReturnStatement : Statement
 
     Expression exp; /// may be null in case of return ;
 }
+
+class ExpressionStatement : Statement
+{
+    override void accept(Visitor v) { return v.visit(this); }
+
+    Expression exp; /// may be null in case of return ;
+}

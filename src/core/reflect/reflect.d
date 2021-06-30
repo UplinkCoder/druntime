@@ -22,6 +22,8 @@ abstract class Visitor
    void visit(EnumMember E);
    void visit(Expression E);
    void visit(VariableExpression V);
+   void visit(ParenthesisExpression P);
+   void visit(BinaryExpression B);
    void visit(Literal L);
    void visit(FunctionLiteral F);
    void visit(IntegerLiteral I);
@@ -39,7 +41,6 @@ abstract class Visitor
    void visit(TypeArray T);
    void visit(TypeAArray T);
    void visit(FunctionType F);
-   void visit(TypeAggregate T);
    void visit(TypeClass T);
    void visit(TypeStruct T);
    void visit(Statement S);
@@ -114,6 +115,14 @@ private class NodeToStringVisitor : Visitor
    {
        result = StructToString(V, indent_level);
    }
+   override void visit(ParenthesisExpression P)
+   {
+       result = StructToString(P, indent_level);
+   }
+   override void visit(BinaryExpression B)
+   {
+       result = StructToString(B, indent_level);
+   }
    override void visit(Literal L)
    {
        result = StructToString(L, indent_level);
@@ -181,10 +190,6 @@ private class NodeToStringVisitor : Visitor
    override void visit(FunctionType F)
    {
        result = StructToString(F, indent_level);
-   }
-   override void visit(TypeAggregate T)
-   {
-       result = StructToString(T, indent_level);
    }
    override void visit(TypeClass T)
    {
@@ -254,7 +259,7 @@ private string elemToString(E)(E e, uint indent_level = 1)
     }
     else static if (is(typeof(e) == bool))
     {
-        result ~= (e ? "true" : "false") ~ ",\n"; 
+        result ~= (e ? "true" : "false") ~ ",\n";
     }
     else static if (is(typeof(e) : uint))
     {
@@ -278,7 +283,7 @@ private string elemToString(E)(E e, uint indent_level = 1)
         import core.internal.string;
         result ~= unsignedToTempString(cast(uint)e) ~ ",\n";
     }
-    else 
+    else
     {
         pragma(msg, typeof(e), " is not handled ");
     }
@@ -333,7 +338,7 @@ private string StructToString(S)(S _struct, uint indent_level = 1, bool forParen
             }
         }
         else
-        {        
+        {
             result ~= elemToString(e, indent_level);
         }
     }

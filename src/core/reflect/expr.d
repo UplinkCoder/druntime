@@ -5,7 +5,7 @@ import core.reflect.decl;
 
 import core.reflect.reflect : Visitor;
 
-class Expression : Node
+abstract class Expression : Node
 {
     override void accept(Visitor v) { return v.visit(this); }
 
@@ -19,7 +19,55 @@ class VariableExpression : Expression
     Declaration var;
 }
 
-class Literal : Expression
+///
+enum BinaryOp
+{
+    Add = "+",
+    Sub = "-",
+    Mul = "*",
+    Div = "/",
+    Mod = "%",
+    Shl = "<<",
+    Shr = ">>",
+
+    BinaryAnd = "&",
+    LogicalAnd = "&&",
+
+    BinaryOr = "|",
+    LogicalOr = "||",
+
+    BinaryXOr = "^",
+
+    Pow = "^^",
+    Cat = "~",
+
+    In = "in",
+
+    Eq = "==",
+    Neq = "!=",
+
+    Is = "is",
+    Nis = "!is",
+}
+
+class ParenthesisExpression : Expression
+{
+    override void accept(Visitor v) { return v.visit(this); }
+
+    Expression exp;
+}
+
+class BinaryExpression : Expression
+{
+    override void accept(Visitor v) { return v.visit(this); }
+
+    BinaryOp op;
+
+    Expression left;
+    Expression right;
+}
+
+abstract class Literal : Expression
 {
     override void accept(Visitor v) { return v.visit(this); }
 }
