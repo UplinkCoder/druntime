@@ -233,9 +233,35 @@ private class NodeToSourceVisitor : Visitor
         assert(0, "abstract Symbol has no source representation");
     }
 
-    override void visit(ScopeDsymbol S)
+    override void visit(Import I)
     {
-        assert(0, "TODO ScopeDsymbol");
+        if (I.isStatic)
+        {
+            result ~= "static ";
+        }
+        result ~= "import ";
+        foreach(p;I.packages)
+        {
+            result ~= p ~ ".";
+        }
+        result ~= I.moduleIdentifier ~ ";";
+    }
+
+    override void visit(ScopeSymbol S)
+    {
+        assert(0, "TODO ScopeSymbol");
+    }
+
+    override void visit(Package P)
+    {
+        assert(0, "TODO Package");
+    }
+
+    override void visit(Module M)
+    {
+        result ~= "module {TODO}\n";
+
+//        assert(0, "TODO Module");
     }
 
     private void putType(Type T)

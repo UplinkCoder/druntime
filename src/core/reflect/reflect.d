@@ -30,7 +30,10 @@ abstract class Visitor
    void visit(StringLiteral S);
    void visit(StructLiteral S);
    void visit(Symbol S);
-   void visit(ScopeDsymbol S);
+   void visit(Import I);
+   void visit(ScopeSymbol S);
+   void visit(Package P);
+   void visit(Module M);
    void visit(Type T);
    void visit(TypeBasic T);
    void visit(TypeNext T);
@@ -147,9 +150,21 @@ private class NodeToStringVisitor : Visitor
    {
        result = StructToString(S, indent_level);
    }
-   override void visit(ScopeDsymbol S)
+   override void visit(Import I)
+   {
+       result = StructToString(I, indent_level);
+   }
+   override void visit(ScopeSymbol S)
    {
        result = StructToString(S, indent_level);
+   }
+   override void visit(Package P)
+   {
+       result = StructToString(P, indent_level);
+   }
+   override void visit(Module M)
+   {
+       result = StructToString(M, indent_level);
    }
    override void visit(Type T)
    {
@@ -252,6 +267,10 @@ private string elemToString(E)(E e, uint indent_level = 1)
         {
             result ~= StructToString(e, indent_level + 1)[0 .. $-1] ~ ",\n";
         }
+    }
+    else static if (is(typeof(e) : const(char)[]))
+    {
+       result ~= "\"" ~ e ~ "\"" ~ ",\n";
     }
     else static if (is(typeof(e) == enum))
     {
