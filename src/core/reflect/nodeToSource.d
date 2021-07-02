@@ -170,6 +170,11 @@ private class NodeToSourceVisitor : Visitor
         assert(0, "abstract Expression has no source representation");
     }
 
+    override void visit(NullExpression N)
+    {
+        result ~= "null";
+    }
+
     override void visit(ParenthesisExpression P)
     {
         result ~= "(";
@@ -288,12 +293,15 @@ private class NodeToSourceVisitor : Visitor
     private void putParameterTypes(FunctionType F)
     {
         result ~= " (";
-        foreach(pt;F.parameterTypes)
+        if (F.parameterTypes.length)
         {
-            pt.accept(this);
-            result ~= ", ";
+            foreach(pt;F.parameterTypes)
+            {
+                pt.accept(this);
+                result ~= ", ";
+            }
+            result = result[0 .. $-2];
         }
-        result = result[0 .. $-2];
         result ~= ")";
     }
 
@@ -386,6 +394,21 @@ private class NodeToSourceVisitor : Visitor
         result ~= indent ~ "return ";
         if (R.exp)
             R.exp.accept(this);
+        result ~= ";\n";
+    }
+
+    override void visit(ImportStatement I)
+    {
+        result ~= indent ~ "import ";
+        if (I.imports.length)
+        {
+            foreach (imp;I.imports)
+            {
+                imp.accept(this);
+                result ~= ", ";
+            }
+            result = result[0 .. $-2];
+        }
         result ~= ";\n";
     }
 

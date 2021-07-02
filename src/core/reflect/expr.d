@@ -19,6 +19,12 @@ class VariableExpression : Expression
     Declaration var;
 }
 
+class NullExpression : Expression
+{
+    override void accept(Visitor v) { return v.visit(this); }
+
+}
+
 ///
 enum BinaryOp
 {

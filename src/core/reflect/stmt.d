@@ -1,6 +1,7 @@
 module core.reflect.stmt;
 import core.reflect.node;
 import core.reflect.expr;
+import core.reflect.sym;
 
 import core.reflect.reflect : Visitor;
 
@@ -28,4 +29,11 @@ class ExpressionStatement : Statement
     override void accept(Visitor v) { return v.visit(this); }
 
     Expression exp; /// may be null in case of return ;
+}
+
+class ImportStatement : Statement
+{
+    override void accept(Visitor v) { return v.visit(this); }
+
+    Symbol[] imports;
 }

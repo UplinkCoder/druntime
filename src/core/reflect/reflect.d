@@ -21,6 +21,7 @@ abstract class Visitor
    void visit(AggregateDeclaration A);
    void visit(EnumMember E);
    void visit(Expression E);
+   void visit(NullExpression N);
    void visit(VariableExpression V);
    void visit(ParenthesisExpression P);
    void visit(BinaryExpression B);
@@ -49,6 +50,7 @@ abstract class Visitor
    void visit(Statement S);
    void visit(BlockStatement B);
    void visit(ReturnStatement R);
+   void visit(ImportStatement I);
    void visit(FunctionParameter F);
    void visit(Function F);
    void visit(Scope S);
@@ -113,6 +115,10 @@ private class NodeToStringVisitor : Visitor
    override void visit(Expression E)
    {
        result = StructToString(E, indent_level);
+   }
+   override void visit(NullExpression N)
+   {
+       result = StructToString(N, indent_level);
    }
    override void visit(VariableExpression V)
    {
@@ -222,9 +228,13 @@ private class NodeToStringVisitor : Visitor
    {
        result = StructToString(B, indent_level);
    }
-   override void visit(ReturnStatement B)
+   override void visit(ReturnStatement R)
    {
-       result = StructToString(B, indent_level);
+       result = StructToString(R, indent_level);
+   }
+   override void visit(ImportStatement I)
+   {
+       result = StructToString(I, indent_level);
    }
    override void visit(FunctionParameter F)
    {
