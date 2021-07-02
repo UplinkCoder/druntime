@@ -12,6 +12,14 @@ abstract class Expression : Node
     Type type; /// may be null if not fully resolved
 }
 
+class CallExpression : Expression
+{
+    override void accept(Visitor v) { return v.visit(this); }
+
+    Declaration callee;
+    Expression[] arguments;
+}
+
 class VariableExpression : Expression
 {
     override void accept(Visitor v) { return v.visit(this); }

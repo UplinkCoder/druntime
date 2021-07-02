@@ -170,6 +170,11 @@ private class NodeToSourceVisitor : Visitor
         assert(0, "abstract Expression has no source representation");
     }
 
+    override void visit(CallExpression C)
+    {
+        result ~= "/*call() -- not implemented*/";
+    }
+
     override void visit(NullExpression N)
     {
         result ~= "null";
