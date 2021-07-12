@@ -56,197 +56,191 @@ abstract class Visitor
    void visit(Scope S);
 }
 
-version (DruntimeLibraryBuild)
-{
 private class NodeToStringVisitor : Visitor
 {
-   __gshared string[void*] cache;
 
    string result;
 
+   string[void*] cache;
    uint indent_level;
 
-   this(uint indent_level)
+   this(string[void*] cache, uint indent_level)
    {
+       this.cache = cache;
        this.indent_level = indent_level;
-   }
-
-   static void clearCache()
-   {
-       cache.clear();
    }
 
    override void visit(Node N)
    {
-       result = StructToString(N, indent_level);
+       result = StructToString(N, cache, indent_level);
    }
    override void visit(Declaration D)
    {
-       result = StructToString(D, indent_level);
+       result = StructToString(D, cache, indent_level);
    }
    override void visit(VariableDeclaration V)
    {
-       result = StructToString(V, indent_level);
+       result = StructToString(V, cache, indent_level);
    }
    override void visit(FunctionDeclaration F)
    {
-       result = StructToString(F, indent_level);
+       result = StructToString(F, cache, indent_level);
    }
    override void visit(EnumDeclaration E)
    {
-       result = StructToString(E, indent_level);
+       result = StructToString(E, cache, indent_level);
    }
    override void visit(StructDeclaration S)
    {
-       result = StructToString(S, indent_level);
+       result = StructToString(S, cache, indent_level);
    }
    override void visit(ClassDeclaration C)
    {
-       result = StructToString(C, indent_level);
+       result = StructToString(C, cache, indent_level);
    }
    override void visit(AggregateDeclaration A)
    {
-       result = StructToString(A, indent_level);
+       result = StructToString(A, cache, indent_level);
    }
    override void visit(EnumMember E)
    {
-       result = StructToString(E, indent_level);
+       result = StructToString(E, cache, indent_level);
    }
    override void visit(Expression E)
    {
-       result = StructToString(E, indent_level);
+       result = StructToString(E, cache, indent_level);
    }
    override void visit(NullExpression N)
    {
-       result = StructToString(N, indent_level);
+       result = StructToString(N, cache, indent_level);
    }
    override void visit(VariableExpression V)
    {
-       result = StructToString(V, indent_level);
+       result = StructToString(V, cache, indent_level);
    }
    override void visit(ParenthesisExpression P)
    {
-       result = StructToString(P, indent_level);
+       result = StructToString(P, cache, indent_level);
    }
    override void visit(BinaryExpression B)
    {
-       result = StructToString(B, indent_level);
+       result = StructToString(B, cache, indent_level);
    }
    override void visit(Literal L)
    {
-       result = StructToString(L, indent_level);
+       result = StructToString(L, cache, indent_level);
    }
    override void visit(FunctionLiteral F)
    {
-       result = StructToString(F, indent_level);
+       result = StructToString(F, cache, indent_level);
    }
    override void visit(IntegerLiteral I)
    {
-       result = StructToString(I, indent_level);
+       result = StructToString(I, cache, indent_level);
    }
    override void visit(StringLiteral S)
    {
-       result = StructToString(S, indent_level);
+       result = StructToString(S, cache, indent_level);
    }
    override void visit(StructLiteral S)
    {
-       result = StructToString(S, indent_level);
+       result = StructToString(S, cache, indent_level);
    }
    override void visit(Symbol S)
    {
-       result = StructToString(S, indent_level);
+       result = StructToString(S, cache, indent_level);
    }
    override void visit(Import I)
    {
-       result = StructToString(I, indent_level);
+       result = StructToString(I, cache, indent_level);
    }
    override void visit(ScopeSymbol S)
    {
-       result = StructToString(S, indent_level);
+       result = StructToString(S, cache, indent_level);
    }
    override void visit(Package P)
    {
-       result = StructToString(P, indent_level);
+       result = StructToString(P, cache, indent_level);
    }
    override void visit(Module M)
    {
-       result = StructToString(M, indent_level);
+       result = StructToString(M, cache, indent_level);
    }
    override void visit(Type T)
    {
-       result = StructToString(T, indent_level);
+       result = StructToString(T, cache, indent_level);
    }
    override void visit(TypeBasic T)
    {
-       result = StructToString(T, indent_level);
+       result = StructToString(T, cache, indent_level);
    }
    override void visit(TypeNext T)
    {
-       result = StructToString(T, indent_level);
+       result = StructToString(T, cache, indent_level);
    }
    override void visit(TypePointer T)
    {
-       result = StructToString(T, indent_level);
+       result = StructToString(T, cache, indent_level);
    }
    override void visit(TypeRef T)
    {
-       result = StructToString(T, indent_level);
+       result = StructToString(T, cache, indent_level);
    }
    override void visit(TypeSlice T)
    {
-       result = StructToString(T, indent_level);
+       result = StructToString(T, cache, indent_level);
    }
    override void visit(TypeEnum T)
    {
-       result = StructToString(T, indent_level);
+       result = StructToString(T, cache, indent_level);
    }
    override void visit(TypeArray T)
    {
-       result = StructToString(T, indent_level);
+       result = StructToString(T, cache, indent_level);
    }
    override void visit(TypeAArray T)
    {
-       result = StructToString(T, indent_level);
+       result = StructToString(T, cache, indent_level);
    }
    override void visit(FunctionType F)
    {
-       result = StructToString(F, indent_level);
+       result = StructToString(F, cache, indent_level);
    }
    override void visit(TypeClass T)
    {
-       result = StructToString(T, indent_level);
+       result = StructToString(T, cache, indent_level);
    }
    override void visit(TypeStruct T)
    {
-       result = StructToString(T, indent_level);
+       result = StructToString(T, cache, indent_level);
    }
    override void visit(Statement S)
    {
-       result = StructToString(S, indent_level);
+       result = StructToString(S, cache, indent_level);
    }
    override void visit(BlockStatement B)
    {
-       result = StructToString(B, indent_level);
+       result = StructToString(B, cache, indent_level);
    }
    override void visit(ReturnStatement R)
    {
-       result = StructToString(R, indent_level);
+       result = StructToString(R, cache, indent_level);
    }
    override void visit(ImportStatement I)
    {
-       result = StructToString(I, indent_level);
+       result = StructToString(I, cache, indent_level);
    }
    override void visit(FunctionParameter F)
    {
-       result = StructToString(F, indent_level);
+       result = StructToString(F, cache, indent_level);
    }
    override void visit(Function F)
    {
-       result = StructToString(F, indent_level);
+       result = StructToString(F, cache, indent_level);
    }
    override void visit(Scope S)
    {
-       result = StructToString(S, indent_level);
+       result = StructToString(S, cache, indent_level);
    }
 }
 
@@ -263,7 +257,7 @@ string enumToString(E)(E v)
    }
 }
 
-private string elemToString(E)(E e, uint indent_level = 1)
+private string elemToString(E)(E e, string[void*] cache, uint indent_level = 1)
 {
     string result;
 
@@ -271,11 +265,11 @@ private string elemToString(E)(E e, uint indent_level = 1)
     {
         static if (is(typeof(e) : Node))
         {
-            result ~= nodeToString(e, indent_level + 1)[0 .. $-1] ~ ",\n";
+            result ~= nodeToString(e, cache, indent_level + 1)[0 .. $-1] ~ ",\n";
         }
         else
         {
-            result ~= StructToString(e, indent_level + 1)[0 .. $-1] ~ ",\n";
+            result ~= StructToString(e, cache, indent_level + 1)[0 .. $-1] ~ ",\n";
         }
     }
     else static if (is(typeof(e) : const(char)[]))
@@ -315,13 +309,13 @@ private string elemToString(E)(E e, uint indent_level = 1)
     else
     {
         pragma(msg, typeof(e), " is not handled ");
+        result = "unhandled,\n";
     }
-    assert(result);
 
     return result;
 }
 
-private string StructToString(S)(S _struct, uint indent_level = 1, bool forParentClass = false)
+private string StructToString(S)(S _struct, string[void*] cache, uint indent_level = 1, bool forParentClass = false)
 {
   char[] indent_m;
   indent_m.length = indent_level * 4;
@@ -334,7 +328,7 @@ private string StructToString(S)(S _struct, uint indent_level = 1, bool forParen
   static if (is(S P == super) && P.length)
   {
       alias Base = P[0];
-      result ~= StructToString(cast(Base)_struct, indent_level, true);
+      result ~= StructToString(cast(Base)_struct, cache, indent_level, true);
   }
 
   foreach(i, e;_struct.tupleof)
@@ -360,7 +354,7 @@ private string StructToString(S)(S _struct, uint indent_level = 1, bool forParen
                 indent ~= "    ";
                 foreach(elem;e)
                 {
-                    result ~= indent ~ elem.elemToString(indent_level + 1);
+                    result ~= indent ~ elem.elemToString(cache, indent_level + 1);
                 }
                 indent = indent[0 .. $ - 4];
                 result ~= indent ~ "]\n";
@@ -368,7 +362,7 @@ private string StructToString(S)(S _struct, uint indent_level = 1, bool forParen
         }
         else
         {
-            result ~= elemToString(e, indent_level);
+            result ~= elemToString(e, cache, indent_level);
         }
     }
     else
@@ -380,14 +374,9 @@ private string StructToString(S)(S _struct, uint indent_level = 1, bool forParen
   return result;
 }
 
-extern (D) void clearCache()
+extern (D) string nodeToString(const Node N,  string[void*] cache, uint indent_level = 1)
 {
-    NodeToStringVisitor.clearCache();
-}
-
-extern (D) string nodeToString(const Node N, uint indent_level = 1)
-{
-    if (auto result = (cast(void*) N) in NodeToStringVisitor.cache)
+    if (auto result = N.internalPointer in cache)
     {
        if (auto type = cast(Type)N)
        {
@@ -406,18 +395,12 @@ extern (D) string nodeToString(const Node N, uint indent_level = 1)
        }
     }
 
-    scope v = new NodeToStringVisitor(indent_level);
+    scope v = new NodeToStringVisitor(cache, indent_level);
     // before we accept we put a dummy into the cache;
-    NodeToStringVisitor.cache[cast(void*)N] = null;
+    cache[N.internalPointer] = null;
     (cast()N).accept(v);
     auto result = v.result;
 
-    NodeToStringVisitor.cache[cast(void*)N] = result;
+    cache[N.internalPointer] = result;
     return result;
-}
-}
-else
-{
-extern (D) string nodeToString(const Node N, uint indent_level = 1);
-extern (D) void clearCache();
 }
