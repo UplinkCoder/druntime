@@ -270,7 +270,14 @@ private string elemToString(E)(E e, string[void*] cache, uint indent_level = 1)
     {
         static if (is(typeof(e) : Node))
         {
-            result ~= nodeToString(e, cache, indent_level + 1)[0 .. $-1] ~ ",\n";
+            if (e is null)
+            {
+                result ~= "nullnode " ~ E.stringof ~ ",\n";
+            }
+            else
+            {
+                result ~= nodeToString(e, cache, indent_level + 1)[0 .. $-1] ~ ",\n";
+            }
         }
         else
         {

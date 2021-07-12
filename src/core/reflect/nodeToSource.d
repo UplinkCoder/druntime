@@ -92,7 +92,8 @@ private class NodeToSourceVisitor : Visitor
     {
         result ~= indent ~ nodeToSource(F.type.returnType, indent_level) ~ " "
             ~ F.name ~ " ";
-        putParameters(F.parameters);
+        // putParameters(F.parameters);
+        putParameterTypes(F.type);
         if (F.fbody)
         {
             putBody(F.fbody);
