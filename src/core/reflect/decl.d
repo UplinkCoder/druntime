@@ -52,7 +52,7 @@ class VariableDeclaration : Declaration
 
     Type type;
     Expression _init;
-    uint offset;
+    ulong offset;
 
     final override immutable DeclarationKind kind() pure { return DeclarationKind.VariableDeclaration; }
 }
